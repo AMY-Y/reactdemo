@@ -1,0 +1,24 @@
+.header{
+  margin-bottom:10px;
+}
+.logo {
+  width: 120px;
+  height: 31px;
+  line-height:31px;
+  color:white;
+  background: #e7a9be;
+  margin: 16px 28px 16px 0;
+  padding-left:14px;
+  float:left;
+  font-weight:900;
+  font-size:larger;
+}
+.logo:before{
+  clear:both;
+}
+.logo:after{
+  clear:both;
+}
+.navMenu{
+  float:right;
+}
