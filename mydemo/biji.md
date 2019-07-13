@@ -294,7 +294,8 @@ https://www.cnblogs.com/feiyu6/p/9202873.html
 
 ​		新问题：addArticle里的文字只有保存时才渲染。
 
-#### ​	点击 提交 按钮，onClick事件不会发生
+#### ​	点击 提交 按钮，
+        onClick事件会先于onSubmit事件发生
 
 #### 	初始值问题。在reducer里添加判断条件，有效但会报错。
 
@@ -308,5 +309,7 @@ https://www.cnblogs.com/feiyu6/p/9202873.html
 
 
 
-### 
+###   第一次渲染时的值
 
+    用firstRending控制第一次渲染时是否发起action，控制展示列表的值
+    问题：没保存一次，展示列表就会进值

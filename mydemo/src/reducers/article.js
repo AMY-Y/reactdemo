@@ -46,13 +46,3 @@ const postArticle=(state=initState,action)=>{//提交文章reducer
         // }      
 }
 export default postArticle
-// const article=(state,action)=>{
-//     switch(action.type){
-//         default:
-//             return{
-//                 // addArticle:addArticle(state,action),
-//                 postArticle:postArticle(state,action)
-//             } 
-//     }
-// }
-// export default article

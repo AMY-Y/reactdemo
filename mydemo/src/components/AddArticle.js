@@ -124,6 +124,7 @@ class AddArticle extends Component{
     constructor(props){
         super(props)
         this.state={
+            firstRendering:true,
             arr:[]//时刻保存文章内容。便于获取最后一次的数据
         }
         this.handleComposition=this.handleComposition.bind(this)
@@ -151,12 +152,25 @@ class AddArticle extends Component{
     }
     handleClickButton(e){
         const title=this.state.title
-        const message=this.state.message
-        if(title!==''&message!==''){
-            this.setState({
-                arr:[{title,message},...this.state.arr]
-            }) 
-        }               
+        const message=this.state.message        
+            // this.setState({
+            //     arr:[...this.state.arr,{title,message}]
+            // })  
+            this.setState((preState)=>{
+                console.log('提交2')
+                return {
+                    arr:[preState,{title,message}]
+                }
+            },(newState)=>{
+                console.log('提交1')
+                return newState
+            })      
+                   
+    }
+    componentDidMount(){
+        this.setState({
+            firstRendering:false
+        })
     }
     shouldComponentUpdate(nextProps,nextState){//影响的是本页面的渲染？不，也影响文章列表的渲染
         if(nextState.arr.length===0){
@@ -166,34 +180,91 @@ class AddArticle extends Component{
     }
     render(){
         const arr=this.state.arr
-        const titleVal=arr.length===0?'':arr[arr.length-1].title
-        const messageVal=arr.length===0?'':arr[arr.length-1].message
+        const firstrendering=this.state.firstRendering
+        const titleVal=arr.length===0?'1':arr[arr.length-1].title
+        const messageVal=arr.length===0?'1':arr[arr.length-1].message
+        // const titleVal=arr.title
+        // const messageVal=arr.message
         console.log(this.state)//调试
         console.log(this.state.arr)//调试
         console.log('arrlength '+this.state.arr.length)//调试
         return (
-            <div className="article">
-                <Input placeholder='请输入标题' 
-                name='title'
-                onChange={this.handleChange}
-                onCompositionStart={this.handleComposition}
-                onCompositionUpdate={this.handleComposition}
-                onCompositionEnd={this.handleComposition}
-                ></Input>
-                {this.state.title}{this.state.message}
-                <TextArea 
-                name='message'
-                onChange={this.handleChange}
-                onCompositionStart={this.handleComposition}
-                onCompositionUpdate={this.handleComposition}
-                onCompositionEnd={this.handleComposition}
-                autosize={{minRows:5}} 
-                style={{margin:10}}></TextArea>
-                <Button onClick={this.handleClickButton}>保存</Button>
-                <Link to='/'>                   
-                    <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button>
-                </Link>               
-            </div>
+            
+                firstrendering ? (
+                    <div className="article">
+                    <Input placeholder='请输入标题' 
+                    name='title'
+                    onChange={this.handleChange}
+                    onCompositionStart={this.handleComposition}
+                    onCompositionUpdate={this.handleComposition}
+                    onCompositionEnd={this.handleComposition}
+                    ></Input>
+                    {this.state.title}{this.state.message}
+                    <TextArea 
+                    name='message'
+                    onChange={this.handleChange}
+                    onCompositionStart={this.handleComposition}
+                    onCompositionUpdate={this.handleComposition}
+                    onCompositionEnd={this.handleComposition}
+                    autosize={{minRows:5}} 
+                    style={{margin:10}}></TextArea>
+                    <Button onClick={this.handleClickButton}>保存</Button>
+                    {/* <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button> */}
+                    <Link to='/'>                   
+                        <Button  onClick={this.handleClickButton}>提交</Button>
+                    </Link>               
+                </div>        
+                ) :(
+                    <div className="article">
+                    <Input placeholder='请输入标题' 
+                    name='title'
+                    onChange={this.handleChange}
+                    onCompositionStart={this.handleComposition}
+                    onCompositionUpdate={this.handleComposition}
+                    onCompositionEnd={this.handleComposition}
+                    ></Input>
+                    {this.state.title}{this.state.message}
+                    <TextArea 
+                    name='message'
+                    onChange={this.handleChange}
+                    onCompositionStart={this.handleComposition}
+                    onCompositionUpdate={this.handleComposition}
+                    onCompositionEnd={this.handleComposition}
+                    autosize={{minRows:5}} 
+                    style={{margin:10}}></TextArea>
+                    <Button onClick={this.handleClickButton}>保存</Button>
+                    {/* <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button> */}
+                    <Link to='/'>                   
+                        <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button>
+                    </Link>               
+                </div>          
+                )
+                    
+                
+            
+            // <div className="article">
+            //     <Input placeholder='请输入标题' 
+            //     name='title'
+            //     onChange={this.handleChange}
+            //     onCompositionStart={this.handleComposition}
+            //     onCompositionUpdate={this.handleComposition}
+            //     onCompositionEnd={this.handleComposition}
+            //     ></Input>
+            //     {this.state.title}{this.state.message}
+            //     <TextArea 
+            //     name='message'
+            //     onChange={this.handleChange}
+            //     onCompositionStart={this.handleComposition}
+            //     onCompositionUpdate={this.handleComposition}
+            //     onCompositionEnd={this.handleComposition}
+            //     autosize={{minRows:5}} 
+            //     style={{margin:10}}></TextArea>
+            //     <Button onClick={this.handleClickButton}>保存</Button>
+            //     {/* <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button> */}
+            //     <Link to='/'>                   
+            //         <Button  onClick={this.handleClickButton} onSubmit={this.props.post(titleVal,messageVal)}>提交</Button>
+            //     </Link>               
+            // </div>
         )
     }
 }
