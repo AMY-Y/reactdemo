@@ -313,3 +313,12 @@ https://www.cnblogs.com/feiyu6/p/9202873.html
 
     用firstRending控制第一次渲染时是否发起action，控制展示列表的值
     问题：没保存一次，展示列表就会进值
+
+
+
+
+
+
+##   仿小帮厨效果
+    https://juejin.im/post/5c7f8c426fb9a049bd43108d#heading-2
+    
