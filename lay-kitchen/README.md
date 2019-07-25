@@ -62,7 +62,68 @@ yarn install
     ```
 ####  静态页面搭建完成。开始交互
 
-#####
+##### 路由配置
+    安装路由和axios
+    ```
+        npm install --save-dev react-router-dom axios
+      
+    ```
+##### Header
+    到此处有点乱(路由配置，redux,state结构,antion,reducer之类还没定)
+    所以有切到Header里来
+        npm install --save-dev prop-types
+
+###### Link vs NavLink
+    Link是react的使用，NavLink是Route的配置。
+    导航链接用NavLink，因为NavLink多出了active、exact等属性
+    NavLink  to={{pathname,state}}  pathname?state?
+######  安装redux react-redux redux-thunk
+    ```
+    npm install --save-dev redux react-redux redux-thunk
+    ```
+##### 左侧菜单栏
+    优化：直接用数据渲染。棒棒哒
+    在config文件夹内放置数据menulist.js
+##### Content
+    要多次复用，
+    数据请求错误。
+    “network error（网络错误）”表示根本无法到达服务器(例如连接拒绝或名称未解析)或请求配置有错误(错误的请求地址)。
+    network里显示 200状态码。但无响应数据。
+    最终查找问题是   跨   域   ！  ！   ！因为页面地址是localhost:3001
+    请求地址是   https://api.jisuapi.com/recipe/search   
+    明显的  跨域！！！
+    浏览器对xhr对象的跨域反应是：会发送请求和响应。但是浏览器不接受
+
+
+​    ![1563549823777](C:\Users\jiliguagua\AppData\Roaming\Typora\typora-user-images\1563549823777.png)
+
+
+    解决跨域：
+    package.json里边配置'proxy':'baseurl'
+    // "proxy": {
+  //   "/app":{
+  //     "target":"https://api.jisuapi.com/recipe",
+  //     "changeOrigin":true
+  //   }
+  // }方案失败
+    在config文件夹下建立axiosconfig.js
+    其中：qs是一个序列化库
+    尝试失败
+
+    解决
+    ```
+        package.json
+        "proxy":"http://api.jisuapi.com/recipe"
+        content/index.js
+        
+    ```
+
+
+
+
+
+
+
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

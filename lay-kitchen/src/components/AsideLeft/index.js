@@ -1,13 +1,40 @@
 import React,{Component} from 'react'
 import {Menu} from 'antd'
 import './index.less'
-
+import menulist from '../../config/menulist'
+import {NavLink} from 'react-router-dom'
 const {SubMenu,Item}=Menu
 class AsideLeft extends Component{
+    constructor(props){
+        super(props)
+        const RenderTree=this.renderMenu(menulist)
+        this.state={
+            rendertree:RenderTree
+        }
+    }
+    renderMenu=(data)=>{
+        return data.map(item=>{
+            if(item.children){
+                return (
+                    <SubMenu title={item.title} key={item.key}>
+                        {this.renderMenu(item.children)}
+                    </SubMenu>
+                )
+            }
+            return (
+                <Item title={item.title} key={item.key}>
+                    <NavLink to={item.key}>{item.title}</NavLink>
+                </Item>
+            )
+        })
+        
+    }
     render(){
         return (
             <div className='aside-left'>
                 <Menu mode='inline' className='aside-left-menu'>
+                    {this.state.rendertree}
+                    {/* 用数据渲染
                     <Item>首页</Item>
                     <SubMenu title='家常菜'>
                         <Item>快手菜</Item>
@@ -31,7 +58,7 @@ class AsideLeft extends Component{
                         <Item>菌菇类</Item>
                     </SubMenu>
                     <Item>面</Item>
-                    <Item>素食</Item>
+                    <Item>素食</Item> */}
                 </Menu> 
             </div>
         )
